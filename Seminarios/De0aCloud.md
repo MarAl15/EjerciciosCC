@@ -1,7 +1,7 @@
 # De 0 a Cloud
 
 <p align="center">
-<img src="https://github.com/MarAl15/EjerciciosCC/blob/ff0693ee23485403829086bc34a11cab43378426/Seminarios/images/fases.png" scale="0.8">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/ff0693ee23485403829086bc34a11cab43378426/Seminarios/images/fases.png" height="170">
 </p>
 
 Inicialmente el código se maneja con un sistema de control de versiones (SCV), el cual se testeará mediante unos tests y, por último, se hará el despliegue en la Nube.
