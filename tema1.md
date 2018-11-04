@@ -6,9 +6,4 @@ En la asignatura de **Diseño y desarrollo de sistemas de información** realic�
 
 El modelo MVC que nosotros inicialmente pensamos, se puede transformar en uno basado en microservicios identificando estos de forma sencilla: gestión de usuarios, búsqueda de canciones mediante filtros, gestión de listas de reproducción, reproducción de música, gestión de canciones e interfaces.
 
-2. **En la aplicación que se ha usado como ejemplo en el ejercicio anterior, ¿podría usar diferentes lenguajes? ¿Qué almacenes de datos serían los más convenientes?**
-
-Como como se explicó en la [charla de microservicios](http://youtu.be/sh67hQwU14Y), al ser estos independientes se podrían usar un lenguaje diferente para cada uno de ellos.
-
-En el caso del almacenamiento de usuarios se podría utilizar una base de datos SQL ya que los distintos campos son obligatorios, utilizando además un identificador para cada uno de estos. Por otro lado, para el almacenamiento de canciones sería más conveniente una base de datos de tipo NoSQL ya que la estructura y la cantidad de datos puede variar.  
 
