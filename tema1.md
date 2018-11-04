@@ -1,4 +1,4 @@
-# Ejercicios del tema de ["Arquitecturas software para la nube"](http://jj.github.io/CC/documentos/temas/Arquitecturas_para_la_nube)
+# Tema ["Arquitecturas software para la nube"](http://jj.github.io/CC/documentos/temas/Arquitecturas_para_la_nube)
 
 
 ## EJERCICIO 1
