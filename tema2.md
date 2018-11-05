@@ -8,10 +8,10 @@
 Como podemos observar en las imágenes, me he dado de alta en los servicios PaaS de Heroku y Openshift ya que son los más fiables, y los que ofrecen más opciones a la hora de elegir lenguajes.
 
 <p align="center">
-<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/openshift.png" height="170">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/openshift.png" height="370">
 </p>
 <p align="center">
-<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/heroku.png" height="170">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/heroku.png" height="370">
 </p>
  
 
