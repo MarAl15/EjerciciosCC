@@ -94,7 +94,12 @@ mar@mar-SATELLITE-L750:.../python-getting-started$ heroku open
 ```
 
 <p align="center">
-<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/ej2-heroku-despliegue.png" height="370">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/images/tema2/ej2-heroku-despliegue.png" height="380">
 </p>
+
+ 
+## Ejercicio 3
+
+**Realizar una app en express (o el lenguaje y marco elegido) que incluya variables como en el caso anterior.**
 
 
