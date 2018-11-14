@@ -102,4 +102,157 @@ mar@mar-SATELLITE-L750:.../python-getting-started$ heroku open
 
 **Realizar una app en express (o el lenguaje y marco elegido) que incluya variables como en el caso anterior.**
 
+Generamos el directorio Biblioteca con la ayuda de `express`.
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2$ express Biblioteca
+
+  warning: the default view engine will not be jade in future releases
+  warning: use `--view=jade' or `--help' for additional options
+
+
+   create : Biblioteca/
+   create : Biblioteca/public/
+   create : Biblioteca/public/javascripts/
+   create : Biblioteca/public/images/
+   create : Biblioteca/public/stylesheets/
+   create : Biblioteca/public/stylesheets/style.css
+   create : Biblioteca/routes/
+   create : Biblioteca/routes/index.js
+   create : Biblioteca/routes/users.js
+   create : Biblioteca/views/
+   create : Biblioteca/views/error.jade
+   create : Biblioteca/views/index.jade
+   create : Biblioteca/views/layout.jade
+   create : Biblioteca/app.js
+   create : Biblioteca/package.json
+   create : Biblioteca/bin/
+   create : Biblioteca/bin/www
+
+   change directory:
+     $ cd Biblioteca
+
+   install dependencies:
+     $ npm install
+
+   run the app:
+     $ DEBUG=biblioteca:* npm start
+
+```
+
+Como se nos indica, cambiamos de directorio:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2$ cd Biblioteca/
+```
+e instalamos las dependencias:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ npm install
+npm WARN deprecated jade@1.11.0: Jade has been renamed to pug, please install the latest version of pug instead of jade
+npm WARN deprecated constantinople@3.0.2: Please update to at least constantinople 3.1.1
+npm WARN deprecated transformers@2.1.0: Deprecated, use jstransformer
+npm notice created a lockfile as package-lock.json. You should commit this file.
+added 99 packages from 139 contributors and audited 194 packages in 7.383s
+found 2 low severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details
+```
+
+Intentado arreglar las vulnerabilidades:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ npm audit fix
+up to date in 0.81s
+fixed 0 of 2 vulnerabilities in 194 scanned packages
+  2 vulnerabilities required manual review and could not be updated
+  
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ npm uninstall jade --save
+removed 47 packages and audited 140 packages in 1.981s
+found 0 vulnerabilities
+
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ npm install
+audited 140 packages in 1.916s
+found 0 vulnerabilities
+``` 
+
+Y ya podemos modificar el código de la `app.js`:
+```
+var express = require('express');
+var app = express();
+
+var libro = require("./Libro.js");
+var biblioteca = new Array;
+
+// Establecer el puerto dependiendo del PaaS que sea
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
+
+// Agregar un libro
+app.put('/Biblioteca/:titulo/:autor/', function( req, response ) {
+	var nuevo_libro = new libro.Libro(req.params.titulo,req.params.autor);
+	biblioteca.push(nuevo_libro);
+	response.send(nuevo_libro);
+});
+
+// Mostrar todos los libros que haya en un momento determinado
+app.get('/Biblioteca', function(request, response) {
+	response.status(200).send(biblioteca);
+});
+
+
+// Escucha en un puerto determinado
+app.listen(app.get('port'), function() {
+	console.log("Node app is running at localhost:" + app.get('port'));
+});
+
+// Exporta la variable para poder hacer tests
+module.exports = app;
+```
+
+Para un correcto funcionamiento, debemos crear el fichero `Libro.js` como sigue:
+```node
+"use strict";
+
+/* 
+  Definición de la clase Libro: 
+    var este_libro = new Libro(titulo,autor);
+    	`titulo` = título del libro.
+		`autor` = persona que escribió el libro.
+*/
+
+
+exports.Libro = function(titulo, autor){
+	this.titulo = titulo;
+	this.autor = autor;
+	
+	//métodos
+	this.vars = vars;
+}
+
+// Devuelve las variables de instancia
+function vars() {
+    return ['titulo','autor'];
+}
+```
+
+Y, por último, comprobamos que todo funciona bien ejecutando en una terminal:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ node app.js
+Node app is running at localhost:5000
+```
+
+- Para la creación de libros, se ejecuta en otra terminal:
+```console
+mar@mar-SATELLITE-L750:~$ curl -X PUT http://127.0.0.1:5000/Biblioteca/DiezNegritos/AgathaChristie
+{"titulo":"DiezNegritos","autor":"AgathaChristie"}
+
+mar@mar-SATELLITE-L750:~$ curl -X PUT http://127.0.0.1:5000/Biblioteca/LaVueltaAlMundoEnOchentaDias/JulioVerne
+{"titulo":"LaVueltaAlMundoEnOchentaDias","autor":"JulioVerne"}
+
+mar@mar-SATELLITE-L750:~$ curl -X PUT http://127.0.0.1:5000/Biblioteca/LaVozDelViolin/AndreaCamilleri
+{"titulo":"LaVozDelViolin","autor":"AndreaCamilleri"}
+```
+
+- Para la visualización de la pequeña biblioteca, accediendo a http://127.0.0.1:5000/Biblioteca/:
+
+<p align="center">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema2/images/eje3-biblioteca.png" height="200">
+</p>
+
 
