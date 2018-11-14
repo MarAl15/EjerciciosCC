@@ -1,0 +1,16 @@
+{
+  "name": "biblioteca",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test" : "mocha"
+  },
+  "dependencies": {
+    "express": "~4.16.0"
+  },
+  "devDependencies": {
+  	"mocha": "^5.2.0",
+    "supertest": "^3.3.0"
+  }
+}
