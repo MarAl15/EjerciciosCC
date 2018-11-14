@@ -252,6 +252,76 @@ mar@mar-SATELLITE-L750:~$ curl -X PUT http://127.0.0.1:5000/Biblioteca/LaVozDelV
 <img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema2/images/eje3-biblioteca.png" height="200">
 </p>
  
+ 
+## Ejercicio 4
+
+**Crea pruebas para las diferentes rutas de la aplicación.**
+
+Añadimos al final del fichero `app.js`:
+```node
+// Escucha en un puerto determinado
+if(!module.parent){
+	app.listen(app.get('port'), function() {
+		console.log("Node app is running at localhost:" + app.get('port'));
+	});
+}
+
+// Exporta la variable para poder hacer tests
+module.exports = app;
+``` 
+
+Y dentro de la carpeta `test` creamos el fichero `test.js` con algunas pruebas para comprobar si el funcionamiento es correcto:
+```node
+var request = require('supertest'),
+app = require('../app.js');
+
+describe( "PUT Biblioteca", function() {
+	it('Creación correctamente', function (done) {
+	request(app)
+		.put('/Biblioteca/DiezNegritos/AgathaChristie')
+		.expect('Content-Type', /json/)
+		.expect(200, done);
+	});
+
+	it('Error de PUT', function (done) {
+	request(app)
+		.put('/Biblioteca')
+		.expect(404, done);
+	});
+});
+
+describe( "GET Biblioteca", function() {
+	it('Devolución correcta', function (done) {
+	request(app)
+		.get('/Biblioteca')
+		.expect('Content-Type', /json/)
+		.expect(200, done);
+	});
+
+	it('Error de GET', function (done) {
+	request(app)
+		.get('/Biblioteca/DiezNegritos')
+		.expect(404, done);
+	});
+});
+```
+
+Y lo ejecutamos con `mocha`:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ ./node_modules/mocha/bin/mocha
+
+
+  PUT Biblioteca
+    ✓ Creación correctamente
+    ✓ Error de PUT
+
+  GET Biblioteca
+    ✓ Devolución correcta
+    ✓ Error de GET
+
+
+  4 passing (59ms)
+```
 
 
 
