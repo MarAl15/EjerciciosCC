@@ -276,7 +276,7 @@ var request = require('supertest'),
 app = require('../app.js');
 
 describe( "PUT Biblioteca", function() {
-	it('Creación correctamente', function (done) {
+	it('Creación correcta', function (done) {
 	request(app)
 		.put('/Biblioteca/DiezNegritos/AgathaChristie')
 		.expect('Content-Type', /json/)
@@ -312,7 +312,7 @@ mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ ./node_modules/mo
 
 
   PUT Biblioteca
-    ✓ Creación correctamente
+    ✓ Creación correcta
     ✓ Error de PUT
 
   GET Biblioteca
