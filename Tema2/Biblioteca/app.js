@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/public'));
 app.put('/Biblioteca/:titulo/:autor/', function( req, response ) {
 	var nuevo_libro = new libro.Libro(req.params.titulo,req.params.autor);
 	biblioteca.push(nuevo_libro);
-	response.send(nuevo_libro);
+	response.status(200).send(nuevo_libro);
 });
 
 // Mostrar todos los libros que haya en un momento determinado
@@ -22,9 +22,11 @@ app.get('/Biblioteca', function(request, response) {
 
 
 // Escucha en un puerto determinado
-app.listen(app.get('port'), function() {
-	console.log("Node app is running at localhost:" + app.get('port'));
-});
+if(!module.parent){
+	app.listen(app.get('port'), function() {
+		console.log("Node app is running at localhost:" + app.get('port'));
+	});
+}
 
 // Exporta la variable para poder hacer tests
 module.exports = app;
