@@ -171,8 +171,8 @@ audited 140 packages in 1.916s
 found 0 vulnerabilities
 ``` 
 
-Y ya podemos modificar el código de la `app.js`:
-```
+Y ya podemos modificar el código del fichero `app.js`:
+```node
 var express = require('express');
 var app = express();
 
@@ -210,7 +210,7 @@ Para un correcto funcionamiento, debemos crear el fichero `Libro.js` como sigue:
   Definición de la clase Libro: 
     var este_libro = new Libro(titulo,autor);
     	`titulo` = título del libro.
-		`autor` = persona que escribió el libro.
+	`autor` = persona que escribió el libro.
 */
 
 
@@ -246,7 +246,7 @@ mar@mar-SATELLITE-L750:~$ curl -X PUT http://127.0.0.1:5000/Biblioteca/LaVozDelV
 {"titulo":"LaVozDelViolin","autor":"AndreaCamilleri"}
 ```
 
-- Para la visualización de la pequeña biblioteca, accediendo a http://127.0.0.1:5000/Biblioteca/:
+- Para la visualización de la pequeña biblioteca, se accede a http://127.0.0.1:5000/Biblioteca/:
 
 <p align="center">
 <img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema2/images/eje3-biblioteca.png" height="200">
