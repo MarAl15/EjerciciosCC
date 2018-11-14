@@ -323,6 +323,86 @@ mar@mar-SATELLITE-L750:~/UGR/CC/EjerciciosCC/Tema2/Biblioteca$ ./node_modules/mo
   4 passing (59ms)
 ```
 
+## Ejercicio 5
+
+**Instalar y echar a andar tu primera aplicación en Heroku.**
+
+Se realiza de forma análoga al ejercicio 2 pero descargándonos la [aplicación de ejemplo](https://github.com/heroku/node-js-getting-started.git) de Node.js, en vez de la de Python.
+
+
+```console
+mar@mar-SATELLITE-L750:.../node-js-getting-started$ heroku create
+Creating app... done, ⬢ secret-peak-32740
+https://secret-peak-32740.herokuapp.com/ | https://git.heroku.com/secret-peak-32740.git
+```
+
+Como podemos observar, en nuestro caso, Heroku genera el nombre aleatorio `secret-peak-32740` para la aplicación. 
+
+Y ya podemos desplegar código:
+```console
+mar@mar-SATELLITE-L750:.../node-js-getting-started$ git push heroku master
+Counting objects: 497, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (372/372), done.
+Writing objects: 100% (497/497), 231.54 KiB | 0 bytes/s, done.
+Total 497 (delta 90), reused 497 (delta 90)
+remote: Compressing source files... done.
+remote: Building source:
+remote: 
+remote: -----> Node.js app detected
+remote:        
+remote: -----> Creating runtime environment
+remote:        
+remote:        NPM_CONFIG_LOGLEVEL=error
+remote:        NODE_ENV=production
+remote:        NODE_MODULES_CACHE=true
+remote:        NODE_VERBOSE=false
+remote:        
+remote: -----> Installing binaries
+remote:        engines.node (package.json):  10.x
+remote:        engines.npm (package.json):   unspecified (use default)
+remote:        
+remote:        Resolving node version 10.x...
+remote:        Downloading and installing node 10.13.0...
+remote:        Using default npm version: 6.4.1
+remote:        
+remote: -----> Building dependencies
+remote:        Installing node modules (package.json)
+remote:        added 124 packages from 99 contributors and audited 232 packages in 4.82s
+remote:        found 0 vulnerabilities
+remote:        
+remote:        
+remote: -----> Caching build
+remote:        - node_modules
+remote:        
+remote: -----> Pruning devDependencies
+remote:        removed 75 packages and audited 122 packages in 1.697s
+remote:        found 0 vulnerabilities
+remote:        
+remote:        
+remote: -----> Build succeeded!
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote: 
+remote: -----> Compressing...
+remote:        Done: 18.4M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://secret-peak-32740.herokuapp.com/ deployed to Heroku
+remote: 
+remote: Verifying deploy... done.
+To https://git.heroku.com/secret-peak-32740.git
+ * [new branch]      master -> master
+```
+
+Se puede acceder a la aplicación mediante el atajo:
+```console
+mar@mar-SATELLITE-L750:.../node-js-getting-started$ heroku open
+```
+
+<p align="center">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema2/images/ej5-heroku-despliegue.png" height="380">
+</p>
 
 
 
