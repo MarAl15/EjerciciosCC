@@ -405,6 +405,97 @@ mar@mar-SATELLITE-L750:.../node-js-getting-started$ heroku open
 </p>
 
 
+## Ejercicio 8
+
+**Preparar la aplicación con la que se ha venido trabajando hasta este momento para ejecutarse en un PaaS, el que se haya elegido.**
+
+Se crea el fichero `Procfile`:
+```
+web: node app.js
+``` 
+para indicar a heroku qué es lo que tiene que ejecutar, especificándole que es una aplicación web y que debe ejecutar la línea de comandos `node app.js` para _levantar_ la web que hemos creado.
 
 
+Se ha decidido realizar en heroku a partir de [este tutorial](https://devcenter.heroku.com/articles/git), y análogamente a los ejercicios 2 y 5:
 
+1. Inicializar un repositorio de Git local y confirmar
+```console
+mar@mar-SATELLITE-L750:.../Biblioteca$ git init
+Initialized empty Git repository in /home/mar/UGR/CC/EjerciciosCC/Tema2/Biblioteca/.git/
+
+mar@mar-SATELLITE-L750:.../Biblioteca$ git add test/ app.js Libro.js package.json 
+
+mar@mar-SATELLITE-L750:.../Biblioteca$ git commit -am "Biblioteca Heroku"
+[master (root-commit) e5a99b2] Biblioteca Heroku
+ 4 files changed, 101 insertions(+)
+ create mode 100644 Libro.js
+ create mode 100644 app.js
+ create mode 100644 package.json
+ create mode 100644 test/test.js
+```
+
+2. Creación de una aplicación en Heroku
+```console
+mar@mar-SATELLITE-L750:.../Biblioteca$ heroku create
+Creating app... done, ⬢ shielded-plains-84228
+https://shielded-plains-84228.herokuapp.com/ | https://git.heroku.com/shielded-plains-84228.git
+```
+3. Desplegamos la aplicación
+```console
+mar@mar-SATELLITE-L750:.../Biblioteca$ git push heroku master
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 1.48 KiB | 0 bytes/s, done.
+Total 7 (delta 0), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote: 
+remote: -----> Node.js app detected
+remote:        
+remote: -----> Creating runtime environment
+remote:        
+remote:        NPM_CONFIG_LOGLEVEL=error
+remote:        NODE_ENV=production
+remote:        NODE_MODULES_CACHE=true
+remote:        NODE_VERBOSE=false
+remote:        
+remote: -----> Installing binaries
+remote:        engines.node (package.json):  unspecified
+remote:        engines.npm (package.json):   unspecified (use default)
+remote:        
+remote:        Resolving node version 10.x...
+remote:        Downloading and installing node 10.13.0...
+remote:        Using default npm version: 6.4.1
+remote:        
+remote: -----> Building dependencies
+remote:        Installing node modules (package.json)
+remote:        added 88 packages from 473 contributors and audited 179 packages in 3.131s
+remote:        found 0 vulnerabilities
+remote:        
+remote:        
+remote: -----> Caching build
+remote:        - node_modules
+remote:        
+remote: -----> Pruning devDependencies
+remote:        removed 40 packages and audited 121 packages in 1.291s
+remote:        found 0 vulnerabilities
+remote:        
+remote:        
+remote: -----> Build succeeded!
+remote: -----> Discovering process types
+remote:        Procfile declares types     -> (none)
+remote:        Default types for buildpack -> web
+remote: 
+remote: -----> Compressing...
+remote:        Done: 18.4M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://shielded-plains-84228.herokuapp.com/ deployed to Heroku
+remote: 
+remote: Verifying deploy... done.
+To https://git.heroku.com/shielded-plains-84228.git
+ * [new branch]      master -> master
+```
+
+Y accedemos a la aplicación desplegada a través de [este enlace](https://shielded-plains-84228.herokuapp.com/Biblioteca).
