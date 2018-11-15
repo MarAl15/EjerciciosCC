@@ -498,4 +498,21 @@ To https://git.heroku.com/shielded-plains-84228.git
  * [new branch]      master -> master
 ```
 
+Comprobando la creación de libros de forma análoga al ejercicio 3:
+```console
+mar@mar-SATELLITE-L750:~$ curl -X PUT https://shielded-plains-84228.herokuapp.com/Biblioteca/DiezNegritos/AgathaChristie
+{"titulo":"DiezNegritos","autor":"AgathaChristie"}
+
+mar@mar-SATELLITE-L750:~$ curl -X PUT https://shielded-plains-84228.herokuapp.com/Biblioteca/LaVozDelViolin/AndreaCamilleri
+{"titulo":"LaVozDelViolin","autor":"AndreaCamilleri"}
+
+mar@mar-SATELLITE-L750:~$ curl -X PUT https://shielded-plains-84228.herokuapp.com/Biblioteca/LaVueltaAlMundoEnOchentaDias/JulioVerne
+{"titulo":"LaVueltaAlMundoEnOchentaDias","autor":"JulioVerne"}
+```
 Y accedemos a la aplicación desplegada a través de [este enlace](https://shielded-plains-84228.herokuapp.com/Biblioteca).
+
+<p align="center">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema2/images/eje8-biblioteca-despliegue.png" height="230">
+</p>
+
+
