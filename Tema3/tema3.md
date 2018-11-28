@@ -5,7 +5,7 @@
 
 **Instalar los prerrequisitos para ejecutar alguna aplicación propia (la del proyecto de la asignatura u otra) usando Ansible.**
 
-La realización de este ejercicio se va a realizar en una máquina virtual de Vagrant, para ello se debe de instalar este antes.
+La realización de este ejercicio se va a realizar en una máquina virtual de Vagrant con Ubuntu Server 14.04 LTS (Trusty Tahr).
 
 ### [Instalación Vagrant](https://fortinux.gitbooks.io/humble_tips/content/capitulo_1_usando_aplicaciones_en_linux/tutorial_instalar_vagrant_para_usar_ambientes_virtuales_en_gnulinux.html)
 
@@ -20,7 +20,7 @@ A continuación instalamos Vagrant mediante línea de comandos:
 mar@mar-SATELLITE-L750:~$ sudo apt -y install vagrant
 ```
 
-El `-y` como sabemos es opcional.
+El `-y`, como sabemos, es opcional.
 
 
 Procedemos a instalar  Ubuntu Server 14.04 LTS (Trusty Tahr) haciendo uso de los [_boxes_](https://www.vagrantup.com/docs/boxes.html) de Vagrant: 
@@ -42,12 +42,12 @@ Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 end
 ```
-o directame ejecutar la siguiente línea de comando que nos autocompleta el fichero ella sola:
+o directamente ejecutar la siguiente línea de comando que nos autocompleta el fichero ella sola:
 ```console
 r@mar-SATELLITE-L750:~/UGR/CC/vagrant-ubuntu$ vagrant init ubuntu/trusty64
 ```
 
-Y ya podemos inicializar la máquina virtual creada:
+Ya podemos inicializar la máquina virtual creada:
 ```console
 mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-ubuntu$ vagrant up
 /usr/bin/vagrant:57: warning: Insecure world writable dir /usr/local/bin in PATH, mode 040777
