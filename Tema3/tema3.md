@@ -274,7 +274,7 @@ PLAY RECAP *********************************************************************
 xenial                     : ok=10   changed=7    unreachable=0    failed=0 
 ```
 
-Por último, comprobamos que realmente se ha desplegado la aplicación en la máquina virtual:
+Por último, comprobamos que realmente se ha desplegado la aplicación en la máquina virtual de Vagrant:
 ```console
 vagrant@ubuntu-xenial:~$ curl -X GET http://localhost:5000/
 {"status":"OK","ejemplo":{"ruta":"/Tareas","valor":{"Version":"2.0.0","Tareas":[]}}}
