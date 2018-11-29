@@ -138,14 +138,128 @@ Inicialmente especificamos que el usuario que vamos a usar es `vagrant`, que es 
 Por último, verificamos que esté todo correcto:
 ```console
 mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-ubuntu$ ansible all -m ping
-trusty | SUCCESS => {
+trustysuty  | SUCCESS => {
     "changed": false, 
     "ping": "pong"
 }
 ```
 
+## Ejercicio 3
 
+**Desplegar la aplicación que se haya usado anteriormente con todos los módulos necesarios usando un playbook de Ansible.**
 
+Debido a problemas en la ejecución de la aplicación debido a la versión instalada de Node.js en la máquina virtual, se ha decidido instalar Ubuntu 16.04 LTS (Xenial Xerus), pero nos damos cuenta que no se puede ejecutar Ansible debido a un problema de instalación con Python.
+
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-xenial$ ansible all -m ping
+xenial | FAILED! => {
+    "changed": false, 
+    "failed": true, 
+    "module_stderr": "", 
+    "module_stdout": "bash: /usr/bin/python: No such file or directory\r\n", 
+    "msg": "MODULE FAILURE", 
+    "parsed": false
+}
+```
+
+Comprobamos que aunque está instalado `python3`, debemos de tener la carpeta `/usr/bin/python` con la instalación de Python.
+
+```console
+vagrant@ubuntu-xenial:~$ python --version
+The program 'python' can be found in the following packages:
+ * python-minimal
+ * python3
+Ask your administrator to install one of them
+vagrant@ubuntu-xenial:~$ python3 --version
+Python 3.5.2
+vagrant@ubuntu-xenial:~$ alias python='/usr/bin/python3.5'
+vagrant@ubuntu-xenial:~$ python --version
+Python 3.5.2
+```
+
+En este caso, se ha instalado la versión 2.7.12 mediante línea de comandos en la máquina virtual. Y volvemos a comprobar que se puede acceder a esta desde la _anfitriona_:
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-xenial$ ansible all -m ping
+xenial | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+```
+
+A continuación se procede a desplegar [mi proyecto](https://github.com/MarAl15/ProyectoCC) de Cloud Computing, usando el siguiente playbook donde se especifica que las dependencias que se deben instalar antes de proceder a ejecutarla.
+<!-- -->
+```yaml
+---
+- hosts: xenial
+  user: valgrant
+
+  vars:
+    - directorio: /home/vagrant/proyectoCC
+  
+  tasks: 
+    - name: Instala git
+      become: yes
+      apt: pkg=git state=present
+      
+    - name: Instala npm
+      become: yes
+      apt: pkg=npm state=present
+      
+    - name: Instala node
+      become: yes
+      apt: pkg=nodejs-legacy state=present
+      
+    - name: Crea directorio del proyecto
+      file: path={{ directorio }} state=directory
+      
+    - name: Descarga el proyecto del repositorio
+      git:
+        repo: https://github.com/MarAl15/ProyectoCC.git
+        dest: "{{ directorio }}"
+        
+    - name: Instala dependencias basadas en package.json
+      npm:
+        path: "{{ directorio }}"
+        
+    - name: Ejecución de la aplicación
+      shell: npm start &
+      args: chdir {{ directorio }}
+```
+
+Y si todo es correcto, nos aparece la siguiente salida:
+
+```console
+mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-xenial$ ansible-playbook project.yml 
+
+PLAY ***************************************************************************
+
+TASK [setup] *******************************************************************
+ok: [xenial]
+
+TASK [Instala git] *************************************************************
+ok: [xenial]
+
+TASK [Instala npm] *************************************************************
+changed: [xenial]
+
+TASK [Instala node] ************************************************************
+ok: [xenial]
+
+TASK [Crea directorio del proyecto] ********************************************
+changed: [xenial]
+
+TASK [Descarga el proyecto del repositorio] ************************************
+changed: [xenial]
+
+TASK [Instala dependencias basadas en package.json] ****************************
+changed: [xenial]
+
+TASK [Ejecución de la aplicación] **********************************************
+changed: [xenial]
+
+PLAY RECAP *********************************************************************
+xenial                     : ok=8    changed=5    unreachable=0    failed=0   
+```
 
 
 
