@@ -187,27 +187,35 @@ xenial | SUCCESS => {
 ```
 
 A continuación se procede a desplegar [mi proyecto](https://github.com/MarAl15/ProyectoCC) de Cloud Computing, usando el siguiente playbook donde se especifica que las dependencias que se deben instalar antes de proceder a ejecutarla.
-<!-- -->
+
 ```yaml
 ---
 - hosts: xenial
-  user: valgrant
 
   vars:
-    - directorio: /home/vagrant/proyectoCC
+    - directorio: ~/ProyectoCC
   
   tasks: 
     - name: Instala git
       become: yes
       apt: pkg=git state=present
-      
-    - name: Instala npm
+    
+    - name: Instala curl 
       become: yes
-      apt: pkg=npm state=present
+      apt: pkg=curl state=latest
       
-    - name: Instala node
+    - name: Agrega PPA Node.js
       become: yes
-      apt: pkg=nodejs-legacy state=present
+      shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+      args: 
+        warn: no
+      
+    - name: Instala Node.js
+      become: yes
+      apt: pkg=nodejs state=latest
+    
+    - name: Instala forever
+      npm: name=forever global=yes state=present
       
     - name: Crea directorio del proyecto
       file: path={{ directorio }} state=directory
@@ -222,11 +230,10 @@ A continuación se procede a desplegar [mi proyecto](https://github.com/MarAl15/
         path: "{{ directorio }}"
         
     - name: Ejecución de la aplicación
-      shell: npm start &
-      args: chdir {{ directorio }}
+      shell: cd {{directorio }}; npm start
 ```
 
-Y si todo es correcto, nos aparece la siguiente salida:
+Y si todo es correcto, nos aparecerá la siguiente salida:
 
 ```console
 mar@mar-SATELLITE-L750:~/UGR/CC/vagrant-xenial$ ansible-playbook project.yml 
@@ -239,10 +246,16 @@ ok: [xenial]
 TASK [Instala git] *************************************************************
 ok: [xenial]
 
-TASK [Instala npm] *************************************************************
+TASK [Instala curl] ************************************************************
 changed: [xenial]
 
-TASK [Instala node] ************************************************************
+TASK [Agrega PPA Node.js] ******************************************************
+changed: [xenial]
+
+TASK [Instala Node.js] *********************************************************
+changed: [xenial]
+
+TASK [Instala forever] *********************************************************
 ok: [xenial]
 
 TASK [Crea directorio del proyecto] ********************************************
@@ -258,7 +271,13 @@ TASK [Ejecución de la aplicación] ********************************************
 changed: [xenial]
 
 PLAY RECAP *********************************************************************
-xenial                     : ok=8    changed=5    unreachable=0    failed=0   
+xenial                     : ok=10   changed=7    unreachable=0    failed=0 
+```
+
+Por último, comprobamos que realmente se ha desplegado la aplicación en la máquina virtual:
+```console
+vagrant@ubuntu-xenial:~$ curl -X GET http://localhost:5000/
+{"status":"OK","ejemplo":{"ruta":"/Tareas","valor":{"Version":"2.0.0","Tareas":[]}}}
 ```
 
 
