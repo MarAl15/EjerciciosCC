@@ -167,7 +167,7 @@ $ az vm image list --offer ebian --location francecentral --all
 ``` 
 
 
-Y procedemos a crear la máquina virtual instalando la imagen más reciente de Debian 9 proporcionada por Credativ:
+Creamos la máquina virtual con la imagen más reciente de Debian 9 proporcionada por Credativ:
 ```console
 $ az vm create --name DebianT4 --image credativ:Debian:9:9.0.201901090 --resource-group CCGroupFC --admin-username usuario --ssh-key-value ~/.ssh/id_rsa.pub
 {
