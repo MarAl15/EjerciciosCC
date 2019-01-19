@@ -117,8 +117,99 @@ $ az vm open-port -g r1 -n ubuntuT4 --port 80
 </p>
 
 
+## Ejercicio 2
+
+**Crear una instancia de una máquina virtual Debian y provisionarla usando alguna de las aplicaciones vistas en el tema sobre herramientas de aprovisionamiento.**
+
+Inicialmente creamos un nuevo grupo de recursos en el centro de Francia:
+```console
+$ az group create -l francecentral -n CCGroupFC
+{
+  "id": "/subscriptions/6212a19a-52fa-4de3-8d12-d0cd11569726/resourceGroups/CCGroupFC",
+  "location": "francecentral",
+  "managedBy": null,
+  "name": "CCGroupFC",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null
+} 
+```
+
+Buscamos las imágenes Debian disponibles en el centro de Francia:
+```console
+$ az vm image list --offer ebian --location francecentral --all
+[
+  .....
+  {
+    "offer": "Debian",
+    "publisher": "credativ",
+    "sku": "9",
+    "urn": "credativ:Debian:9:9.0.201808270",
+    "version": "9.0.201808270"
+  },
+  {
+    "offer": "Debian",
+    "publisher": "credativ",
+    "sku": "9",
+    "urn": "credativ:Debian:9:9.0.201901090",
+    "version": "9.0.201901090"
+  },
+  {
+    "offer": "Debian",
+    "publisher": "credativ",
+    "sku": "9-backports",
+    "urn": "credativ:Debian:9-backports:9.0.201710090",
+    "version": "9.0.201710090"
+  },
+  ..... 
+]
+``` 
+
+
+Y procedemos a crear la máquina virtual instalando la imagen más reciente de Debian 9 proporcionada por Credativ:
+```console
+$ az vm create --name DebianT4 --image credativ:Debian:9:9.0.201901090 --resource-group CCGroupFC --admin-username usuario --ssh-key-value ~/.ssh/id_rsa.pub
+{
+  "fqdns": "",
+  "id": "/subscriptions/6212a19a-52fa-4de3-8d12-d0cd11569726/resourceGroups/CCGroupFC/providers/Microsoft.Compute/virtualMachines/DebianT4",
+  "location": "francecentral",
+  "macAddress": "00-0D-3A-3C-1F-9C",
+  "powerState": "VM running",
+  "privateIpAddress": "10.0.0.4",
+  "publicIpAddress": "20.188.39.128",
+  "resourceGroup": "CCGroupFC",
+  "zones": ""
+}
+```
+
+Y procedemos a aprovisionar la máquina virtual creada a partir de [nuestro playbook](https://github.com/MarAl15/EjerciciosCC/blob/master/Tema4/provision/receta-debian.yml).
+
+<p align="center">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema4/images/playbook-debian.png" weight="450">
+</p>
+
+Finalmente desplegamos nuestra aplicación en la máquina virtual provisionada conectándonos por SSH a esta:
+
+```console
+$ ssh usuario@20.188.39.128
+usuario@DebianT4:~$ cd ProyectoCC/
+usuario@DebianT4:~/ProyectoCC$ sudo npm start
+```
+
+Habilitamos el puerto 80 para comprobar que se ha desplegado correctamente nuestra aplicación:
+```console
+$ az vm open-port -g CCGroupFC -n DebianT4 --port 80
+```
+
+<p align="center">
+<img src="https://github.com/MarAl15/EjerciciosCC/blob/master/Tema4/images/verificacion.png" weight="450">
+</p>
+
+
 
 # Referencias
 
 - https://docs.microsoft.com/es-es/azure/virtual-machines/azure-cli-arm-commands
 - https://docs.microsoft.com/es-es/cli/azure/vm?view=azure-cli-latest#az-vm-create
+- https://docs.microsoft.com/en-us/cli/azure/vm/image?view=azure-cli-latest
