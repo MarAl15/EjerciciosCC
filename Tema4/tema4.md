@@ -56,10 +56,10 @@ data:    Canonical  UbuntuServer  18.10
 
 Una imagen de Marketplace de Azure tiene los atributos siguientes [[2](https://docs.microsoft.com/es-es/azure/virtual-machines/windows/cli-ps-findimage)]:
 
-    - **Publicador:** organización que ha creado la imagen. Ejemplos: Canonical, MicrosoftWindowsServer
-    - **Oferta:** nombre de un grupo de imágenes relacionadas creado por un publicador. Ejemplos: Ubuntu Server, WindowsServer
-    - **SKU:** instancia de una oferta, por ejemplo, una versión principal de una distribución. Ejemplos: 16.04-LTS, 2016-Datacenter
-    - **Versión:** número de versión de una SKU de imagen.
+- **Publicador:** organización que ha creado la imagen. _Ejemplos:_ Canonical, MicrosoftWindowsServer
+- **Oferta:** nombre de un grupo de imágenes relacionadas creado por un publicador. _Ejemplos:_ Ubuntu Server, WindowsServer
+- **SKU:** instancia de una oferta, por ejemplo, una versión principal de una distribución. _Ejemplos:_ 16.04-LTS, 2016-Datacenter
+- **Versión:** número de versión de una SKU de imagen.
 
 Para identificar una imagen de Marketplace cuando se utiliza un URN que combina estos valores separados por el carácter de dos puntos: `Publicador:Oferta:Sku:Versión`. En este caso se empleará la imagen de Ubuntu Server 18.04 LTS más reciente, es decir, `Canonical:UbuntuServer:18.04-LTS:18.04.201901140`.
 
@@ -109,7 +109,7 @@ usuario@ubuntuT4:~$ sudo apt install -y nginx
 
 Para poder comprobar que el servidor nginx, que escucha peticiones a través del puerto 80, se debe de activar este:
 ```console
-az vm open-port -g r1 -n ubuntuT4 --port 80
+$ az vm open-port -g r1 -n ubuntuT4 --port 80
 ```
 
 <p align="center">
